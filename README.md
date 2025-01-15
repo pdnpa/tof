@@ -1,7 +1,3 @@
-Here’s an updated README with the latest developments included:
-
----
-
 # National Parks Analysis in England
 
 ## Overview
