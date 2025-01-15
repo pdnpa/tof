@@ -1,14 +1,14 @@
 # National Parks Analysis in England
 
 ## Overview
-This repository provides tools and workflows for spatial analysis of the 10 National Parks in England. It focuses on processing, analyzing, and visualizing data related to priority habitats, constraints, and remaining areas within these parks. The outputs support land management, conservation planning, and policy-making.
+This repository provides tools and workflows for spatial analysis of the 10 National Parks in England. It focuses on processing, analysing, and visualising data related to priority habitats, constraints, and remaining areas within these parks. The outputs support land management, conservation planning, and policy-making.
 
 ---
 
 ## Objectives
 - Clip spatial data to National Park boundaries.
 - Generate constraints matrices for each National Park.
-- Visualize and analyze the relationships between priority habitats, constraints, and remaining areas within National Park boundaries.
+- Visualise and analyse the relationships between priority habitats, constraints, and remaining areas within National Park boundaries.
 - Extend the analysis to all 10 National Parks in England with reproducible workflows.
 
 ---
@@ -20,18 +20,18 @@ national-parks-analysis/
 ├── data/                  # Raw and processed data
 │   ├── boundaries/        # National Park boundaries
 │   ├── constraints/       # Constraints data
-│   ├── outputs/           # Final shapefiles, statistics, and visualizations
+│   ├── outputs/           # Final shapefiles, statistics, and visualisations
 │       ├── clipped/       # Clipped data by National Park
 │       ├── constraints_matrix/ # Merged constraints and final outputs
-│       ├── visualizations/ # Saved maps and plots
+│       ├── visualisations/ # Saved maps and plots
 │
 ├── scripts/               # Processing and analysis scripts
 │   ├── cut_to_boundaries.py
 │   ├── create_constraints_matrix.py
 │   ├── calculate_statistics.py
 │
-├── notebooks/             # Interactive visualization and exploratory work
-│   ├── visualization.ipynb
+├── notebooks/             # Interactive visualisation and exploratory work
+│   ├── visualisation.ipynb
 │
 ├── requirements.txt       # Dependencies (optional, pip-based installs)
 ├── environment.yml        # Conda environment file
@@ -112,8 +112,8 @@ python scripts/calculate_statistics.py
 This script:
 - Saves statistics as CSV files for further analysis.
 
-### 3. Visualization
-Use the `notebooks/visualization.ipynb` notebook to generate and customize visual outputs. Key visualizations include:
+### 3. Visualisation
+Use the `notebooks/visualisation.ipynb` notebook to generate and customise visual outputs. Key visualisations include:
 - 10 National Parks with priority habitats, constraints, and remaining areas.
 - Statistics displayed below each National Park map.
 
@@ -136,7 +136,7 @@ Use the `notebooks/visualization.ipynb` notebook to generate and customize visua
      - National Parks.
      - Priority habitats.
      - Constraints matrix.
-4. **Visualizations**:
+4. **Visualisations**:
    - Subplots showing all 10 National Parks.
    - Maps with key statistics.
 
