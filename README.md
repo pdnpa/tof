@@ -1,15 +1,19 @@
+Here’s an updated README with the latest developments included:
+
+---
+
 # National Parks Analysis in England
 
 ## Overview
-This repository provides tools and workflows for spatial analysis of the 10 National Parks in England. It focuses on processing, analyzing, and visualizing data related to priority habitats and constraints within these parks. The outputs can be used to support land management, conservation planning, and policy-making.
+This repository provides tools and workflows for spatial analysis of the 10 National Parks in England. It focuses on processing, analyzing, and visualizing data related to priority habitats, constraints, and remaining areas within these parks. The outputs support land management, conservation planning, and policy-making.
 
 ---
 
 ## Objectives
-- Cut spatial data to National Park boundaries.
-- Create constraints matrices for each National Park.
+- Clip spatial data to National Park boundaries.
+- Generate constraints matrices for each National Park.
 - Visualize and analyze the relationships between priority habitats, constraints, and remaining areas within National Park boundaries.
-- Extend the analysis to all 10 National Parks in England.
+- Extend the analysis to all 10 National Parks in England with reproducible workflows.
 
 ---
 
@@ -20,15 +24,18 @@ national-parks-analysis/
 ├── data/                  # Raw and processed data
 │   ├── boundaries/        # National Park boundaries
 │   ├── constraints/       # Constraints data
-│   ├── outputs/           # Final shapefiles and analysis results
+│   ├── outputs/           # Final shapefiles, statistics, and visualizations
+│       ├── clipped/       # Clipped data by National Park
+│       ├── constraints_matrix/ # Merged constraints and final outputs
+│       ├── visualizations/ # Saved maps and plots
 │
 ├── scripts/               # Processing and analysis scripts
 │   ├── cut_to_boundaries.py
 │   ├── create_constraints_matrix.py
 │   ├── calculate_statistics.py
 │
-├── notebooks/             # For exploratory and visualization work
-│   ├── visualisation.ipynb
+├── notebooks/             # Interactive visualization and exploratory work
+│   ├── visualization.ipynb
 │
 ├── requirements.txt       # Dependencies
 ├── README.md              # Documentation
@@ -41,11 +48,13 @@ national-parks-analysis/
 
 ### Prerequisites
 - Python 3.8+
-- GeoPandas
-- Matplotlib
-- PyProj
-- Shapely
-- Other dependencies (see `requirements.txt`)
+- Required Python libraries:
+  - GeoPandas
+  - Matplotlib
+  - PyProj
+  - Shapely
+  - Pandas
+  - tqdm
 
 ### Installation Steps
 1. Clone the repository:
@@ -69,57 +78,89 @@ national-parks-analysis/
 
 ### 1. Data Preparation
 - Ensure National Park boundaries, constraints, and other datasets are placed in the `data/` directory under the appropriate subfolders.
+- Supported file formats: `.shp`, `.gpkg`, or other GeoDataFrame-compatible formats.
 
 ### 2. Run Scripts
 
-#### Cut Data to National Park Boundaries
-Use the `cut_to_boundaries.py` script to clip spatial data to National Park boundaries.
+#### Clip Data to National Park Boundaries
+Use the `cut_to_boundaries.py` script to clip spatial data to National Park boundaries:
 ```bash
-python scripts/cut_to_boundaries.py --input ./data/constraints --output ./data/outputs --boundary ./data/boundaries
+python scripts/cut_to_boundaries.py
 ```
+This script:
+- Clips datasets in the `constraints/` folder to the National Parks boundary.
+- Filters geometry types to polygons.
 
-#### Create Constraints Matrix
-Generate constraints matrices for each park using `create_constraints_matrix.py`:
+#### Generate Constraints Matrix
+Generate constraints matrices with the `create_constraints_matrix.py` script:
 ```bash
-python scripts/create_constraints_matrix.py --constraints ./data/outputs --output ./data/outputs/constraints_matrix
+python scripts/create_constraints_matrix.py
 ```
+This script:
+- Merges clipped constraints into a single dataset.
+- Excludes priority habitats to calculate available areas.
 
-#### Calculate Statistics
-Run `calculate_statistics.py` to calculate areas and overlaps:
+#### Calculate and Save Statistics
+Use `calculate_statistics.py` to compute areas and percentages:
 ```bash
-python scripts/calculate_statistics.py --input ./data/outputs/constraints_matrix --output ./data/outputs/statistics.csv
+python scripts/calculate_statistics.py
 ```
+This script:
+- Saves statistics as CSV files for further analysis.
 
 ### 3. Visualization
-Use the notebook `notebooks/visualization.ipynb` to explore and visualize the outputs interactively.
+Use the `notebooks/visualization.ipynb` notebook to generate and customize visual outputs. Key visualizations include:
+- 10 National Parks with priority habitats, constraints, and remaining areas.
+- Statistics displayed below each National Park map.
 
 ---
 
 ## Data Sources
-- **National Park Boundaries**: Natural England [National Parks (England)](https://naturalengland-defra.opendata.arcgis.com/datasets/Defra::national-parks-england/about)
-- **Priority Habitats**: Natural England [Priority Habitats Inventory (England)](https://naturalengland-defra.opendata.arcgis.com/datasets/39403df11c8044d998772db5b54ad86c_0/explore)
-- **Constraints Data**: Derived from multiple sources (e.g., flood zones, land ownership).
+- **National Park Boundaries**: [Natural England - National Parks (England)](https://naturalengland-defra.opendata.arcgis.com/datasets/Defra::national-parks-england/about)
+- **Priority Habitats**: [Priority Habitats Inventory (England)](https://naturalengland-defra.opendata.arcgis.com/datasets/39403df11c8044d998772db5b54ad86c_0/explore)
+- **Constraints Data**: Sourced from multiple agencies (e.g., OS Data, CEH Lakes, SSSI datasets).
 
 ---
 
 ## Outputs
-- **Shapefiles**:
-  - Clipped spatial data per National Park.
-  - Constraints matrices.
-  - Remaining areas.
-- **Visualizations**:
-  - Maps of priority habitats, constraints, and remaining areas.
-- **Statistics**:
-  - Area and percentage of priority habitats, constraints, and remaining areas.
+1. **Clipped Data**:
+   - Individual layers clipped to each National Park boundary.
+2. **Constraints Matrix**:
+   - Combined constraints dataset, with and without priority habitats.
+3. **Statistics**:
+   - CSV files with areas (hectares) and percentages for:
+     - National Parks.
+     - Priority habitats.
+     - Constraints matrix.
+4. **Visualizations**:
+   - Subplots showing all 10 National Parks.
+   - Maps with key statistics.
+
+---
+
+## Example Outputs
+### Area Statistics (CSV)
+Saved to `../output/national_parks_area_stats.csv`:
+```csv
+park_name,total_area_ha,priority_area_ha,constraints_area_ha,priority_pct,constraints_pct
+Peak District,144768.25,52534.40,41237.70,36.3,28.5
+Lake District,226813.50,81241.60,50122.30,35.8,22.1
+...
+```
+
+### Maps
+Saved to `../output/national_parks_with_stats.png`.
 
 ---
 
 ## Contributing
-Contributions are welcome! Please open an issue or submit a pull request with improvements, bug fixes, or new features.
+Contributions are welcome! Feel free to:
+- Open issues for bugs or feature requests.
+- Submit pull requests with improvements or new functionality.
 
 ---
 
-
 ## Contact
-For any questions or feedback, open an issue in the repository.
+For any questions or feedback, please open an issue in this repository. 😊
 
+---
