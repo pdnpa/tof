@@ -33,9 +33,10 @@ national-parks-analysis/
 ├── notebooks/             # Interactive visualization and exploratory work
 │   ├── visualization.ipynb
 │
-├── requirements.txt       # Dependencies
+├── requirements.txt       # Dependencies (optional, pip-based installs)
+├── environment.yml        # Conda environment file
 ├── README.md              # Documentation
-└── LICENSE                # Licensing information (if applicable)
+
 ```
 
 ---
@@ -53,20 +54,27 @@ national-parks-analysis/
   - tqdm
 
 ### Installation Steps
+
+#### Using Conda (Recommended)
 1. Clone the repository:
    ```bash
    git clone https://github.com/yourusername/national-parks-analysis.git
    cd national-parks-analysis
    ```
-2. Create a virtual environment and activate it:
+2. Create the environment from the `environment.yml` file:
    ```bash
-   python -m venv env
-   source env/bin/activate  # On Windows: .\env\Scripts\activate
+   conda env create -f environment.yml
    ```
-3. Install dependencies:
+3. Activate the environment:
    ```bash
-   pip install -r requirements.txt
+   conda activate tof
    ```
+
+#### Using `requirements.txt` (Optional)
+If you prefer `pip`, use:
+```bash
+pip install -r requirements.txt
+```
 
 ---
 
@@ -157,6 +165,7 @@ Contributions are welcome! Feel free to:
 ---
 
 ## Contact
-For any questions or feedback, please open an issue in this repository. 😊
+For any questions or feedback, please open an issue in this repository.
 
 ---
+
